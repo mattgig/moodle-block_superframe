@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,7 +14,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
  * block_superframe main file
  *
@@ -21,7 +21,6 @@
  * @copyright  Daniel Neis <danielneis@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 /**
  * Modified for use in MoodleBites for Developers Level 1
  * by Richard Jones & Justin Hunt.
@@ -32,7 +31,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 /*
-
 Notice some rules that will keep plugin approvers happy when you want
 to register your plugin in the plugins database
 
@@ -53,15 +51,15 @@ class block_superframe extends block_base {
     /**
      * Initialize our block with a language string.
      */
-    function init() {
+    public function init() {
         $this->title = get_string('pluginname', 'block_superframe');
     }
 
     /**
      * Add some text content to our block.
      */
-    function get_content() {
-        global $USER;
+    public function get_content() {
+        global $USER, $CFG;
 
         // Do we have any content?
         if ($this->content !== null) {
@@ -78,6 +76,9 @@ class block_superframe extends block_base {
         $this->content->footer = '';
         $this->content->text = get_string('welcomeuser', 'block_superframe',
                 $USER);
+        $this->content->text .= "<p class='alert-info'>" . get_string('message', 'block_superframe') . "</p>";
+		$this->content->text .= '<br><a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' .
+                get_string('viewlink', 'block_superframe') . '</a>';
 
         return $this->content;
     }
@@ -95,7 +96,7 @@ class block_superframe extends block_base {
     /**
      * Allow multiple instances of the block.
      */
-    function instance_allow_multiple() {
+    public function instance_allow_multiple() {
         return true;
     }
 

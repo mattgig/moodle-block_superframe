@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,7 +14,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
  * block_superframe capabilities/permissions
  *
@@ -21,19 +21,17 @@
  * @copyright  Daniel Neis <danielneis@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 /**
  * Modified for use in MoodleBites for Developers Level 1
  * by Richard Jones & Justin Hunt.
  *
  * See: https://www.moodlebites.com/mod/page/view.php?id=24546
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-    //User can add to Dashboard.
+    // User can add to Dashboard.
     'block/superframe:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
