@@ -74,11 +74,10 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe',
-                $USER);
+        $this->content->text = get_string('welcomeuser', 'block_superframe',$USER);
         $this->content->text .= "<p class='alert-info'>" . get_string('message', 'block_superframe') . "</p>";
 		$this->content->text .= '<br><a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' .
-                get_string('viewlink', 'block_superframe') . '</a>';
+               get_string('viewlink', 'block_superframe') . '</a>';
 
         return $this->content;
     }
@@ -99,5 +98,9 @@ class block_superframe extends block_base {
     public function instance_allow_multiple() {
         return true;
     }
-
+	
+// Allow block configurations
+    function has_config() {
+        return true;
+    }
 }

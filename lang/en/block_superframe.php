@@ -33,9 +33,24 @@
 // General
 $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
-$string['message'] = 'You are a crappy developer';
-$string['viewlink'] = 'View link';
+$string['message'] = 'You are a slow programmer.';
+$string['viewlink'] = 'View page';
+$string['commentontask'] = 'This MG\'s attempt to make task 2 from week 2 work.';
+
+// Admin setting file
+// $string[''] = '';
+$string['headerconfig'] = 'Super frame settings';
+$string['headerconfigdesc'] = 'Settings for Super frame';
+$string['url'] = 'url';
+$string['url_details'] = 'Url to display';
+$string['height'] = 'Height';
+$string['height_details'] = 'Height of the frame (px)';
+$string['width'] = 'Width';
+$string['width_details'] = 'Width of the frame (px)';
+$string['pagelayout'] = 'Page layout';
+$string['pagelayout_details'] = 'Select a preferred page layout';
 
 // Capability strings
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
+
