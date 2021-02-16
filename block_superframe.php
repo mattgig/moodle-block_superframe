@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * block_superframe main file
  *
@@ -21,6 +21,7 @@
  * @copyright  Daniel Neis <danielneis@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 /**
  * Modified for use in MoodleBites for Developers Level 1
  * by Richard Jones & Justin Hunt.
@@ -33,12 +34,11 @@ defined('MOODLE_INTERNAL') || die();
 /*
 Notice some rules that will keep plugin approvers happy when you want
 to register your plugin in the plugins database
-
-    Use 4 spaces to indent, no tabs
+    
+	Use 4 spaces to indent, no tabs
     Use 8 spaces for continuation lines
     Make sure every class has php doc to describe it
     Describe the parameters of each class and function
-
     https://docs.moodle.org/dev/Coding_style
 */
 
@@ -74,10 +74,17 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe',$USER);
-        $this->content->text .= "<p class='alert-info'>" . get_string('message', 'block_superframe') . "</p>";
-		$this->content->text .= '<br><a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' .
-               get_string('viewlink', 'block_superframe') . '</a>';
+        $this->content->text = get_string('welcomeuser', 'block_superframe', $USER);
+
+        // Optionally add some kind of message.
+        $this->content->text .= '<p class="text-success">' .
+                                 get_string('message', 'block_superframe') .
+                                 '</p>';
+
+        // Add the block id to the Moodle URL for the view page.
+        $blockid = $this->instance->id;
+        $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
+        $this->content->text .= '<p>' . html_writer::link($url, get_string('viewlink', 'block_superframe')) . '</p>';
 
         return $this->content;
     }
@@ -98,8 +105,10 @@ class block_superframe extends block_base {
     public function instance_allow_multiple() {
         return true;
     }
-	
-// Allow block configurations
+
+    /**
+     * Allow block configuration.
+     */
     function has_config() {
         return true;
     }
