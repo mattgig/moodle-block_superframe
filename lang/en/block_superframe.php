@@ -32,9 +32,8 @@
 // General strings.
 $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
-$string['message'] = 'I am still struggling very much.';
+$string['message'] = 'I am a modest fellow';
 $string['viewlink'] = 'View page';
-$string['commentontask'] = 'I hope you will enjoy this webpage: ';
 
 // Admin settings file.
 $string['headerconfig'] = 'Super frame settings';
@@ -51,6 +50,8 @@ $string['pagelayout_details'] = 'Select a preferred page layout';
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
+$string['superframe:seeviewpage'] = 'Access the view page';
+$string['superframe:seeviewpagelink'] = 'See this link';
 
 // Edit form strings.
 $string['size'] = 'Select a size for your iframe';

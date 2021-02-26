@@ -32,13 +32,15 @@
 defined('MOODLE_INTERNAL') || die();
 
 /*
+
 Notice some rules that will keep plugin approvers happy when you want
 to register your plugin in the plugins database
-    
-	Use 4 spaces to indent, no tabs
+
+    Use 4 spaces to indent, no tabs
     Use 8 spaces for continuation lines
     Make sure every class has php doc to describe it
     Describe the parameters of each class and function
+
     https://docs.moodle.org/dev/Coding_style
 */
 
@@ -48,6 +50,7 @@ to register your plugin in the plugins database
  */
 
 class block_superframe extends block_base {
+	
     /**
      * Initialize our block with a language string.
      */
@@ -74,17 +77,25 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe', $USER);
-
-        // Optionally add some kind of message.
-        $this->content->text .= '<p class="text-success">' .
-                                 get_string('message', 'block_superframe') .
-                                 '</p>';
 
         // Add the block id to the Moodle URL for the view page.
         $blockid = $this->instance->id;
-        $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
-        $this->content->text .= '<p>' . html_writer::link($url, get_string('viewlink', 'block_superframe')) . '</p>';
+        $context = context_block::instance($blockid);	
+		$courseid = $this->page->course->id;
+        $users = self::get_course_users($courseid);	
+
+        // Check the capability.
+		if (has_capability('block/superframe:seeviewpagelink', $context)) {
+            $renderer = $this->page->get_renderer('block_superframe');
+            $this->content->text = $renderer->fetch_block_content($blockid, $courseid, $users);
+        }
+		
+		/*
+		
+        foreach ($users as $user) {
+            $this->content->text .='<li>' . $user->lastname . ', ' . $user->firstname . '</li>';
+        }
+        */
 
         return $this->content;
     }
@@ -112,4 +123,23 @@ class block_superframe extends block_base {
     function has_config() {
         return true;
     }
+	
+	private static function get_course_users($courseid) {
+        global $DB;
+
+        $sql = "SELECT u.id, u.firstname, u.lastname
+                FROM {course} as c
+                JOIN {context} as x ON c.id = x.instanceid
+                JOIN {role_assignments} as r ON r.contextid = x.id
+                JOIN {user} AS u ON u.id = r.userid
+               WHERE c.id = :courseid
+                 AND r.roleid = :roleid";
+
+        // In real world query should check users are not deleted/suspended.
+
+        $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
+
+        return $records;
+    }
+
 }

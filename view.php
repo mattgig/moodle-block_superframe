@@ -32,13 +32,9 @@ $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
 require_login();
 
-// Start output to browser.
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-
-// Two lines added, additional code
-echo(html_writer::tag('p', get_string('commentontask', 'block_superframe')));
-echo '<br>' . $OUTPUT->user_picture($USER, array('popup'=>true)) . fullname($USER) . '<br>';
+// Check the users permissions to see the view page.
+$context = context_course::instance($COURSE->id);
+require_capability('block/superframe:seeviewpage', $context);
 
 // Get the instance configuration data from the database.
 // It's stored as a base 64 encoded serialized string.
@@ -76,13 +72,5 @@ switch ($config->size) {
         $height = 720;
         break;
 }
-
-// Build and display an iframe.
-$attributes = ['src' => $url,
-               'width' => $width,
-               'height' => $height];
-echo html_writer::start_tag('iframe', $attributes);
-echo html_writer::end_tag('iframe');
-
-// Send footer out to browser.
-echo $OUTPUT->footer();
+$renderer = $PAGE->get_renderer('block_superframe');
+$renderer->display_view_page($url, $width, $height);
