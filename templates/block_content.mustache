@@ -30,11 +30,12 @@
 
 <div>
     <h3>{{welcome}}</h3>
-    <p><a href="{{{url}}}">{{text}}</a></p>
-	</p>{{#students}}
+    <a href="{{{url}}}">{{text}}</a>
+    <br><br>
+    {{#students}}
       <ul class="list-group">
         <li class="list-group-item list-group-item-warning">{{.}}</li>
-    </ul>
-    {{/students}}</p>
-	
+      </ul>
+    {{/students}}
+    <br><a href={{{popurl}}} target="_blank"> {{poptext}}</a>
 </div>

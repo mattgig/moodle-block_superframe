@@ -50,7 +50,6 @@ to register your plugin in the plugins database
  */
 
 class block_superframe extends block_base {
-	
     /**
      * Initialize our block with a language string.
      */
@@ -80,22 +79,19 @@ class block_superframe extends block_base {
 
         // Add the block id to the Moodle URL for the view page.
         $blockid = $this->instance->id;
-        $context = context_block::instance($blockid);	
-		$courseid = $this->page->course->id;
-        $users = self::get_course_users($courseid);	
+        $context = context_block::instance($blockid);
+
+        // Add the courseid to pass to view page for return link.
+        $courseid = $this->page->course->id;
+
+        // List of course students.
+        $users = self::get_course_users($courseid);
 
         // Check the capability.
-		if (has_capability('block/superframe:seeviewpagelink', $context)) {
+        if (has_capability('block/superframe:seeviewpagelink', $context)) {
             $renderer = $this->page->get_renderer('block_superframe');
             $this->content->text = $renderer->fetch_block_content($blockid, $courseid, $users);
         }
-		
-		/*
-		
-        foreach ($users as $user) {
-            $this->content->text .='<li>' . $user->lastname . ', ' . $user->firstname . '</li>';
-        }
-        */
 
         return $this->content;
     }
@@ -123,8 +119,8 @@ class block_superframe extends block_base {
     function has_config() {
         return true;
     }
-	
-	private static function get_course_users($courseid) {
+
+    private static function get_course_users($courseid) {
         global $DB;
 
         $sql = "SELECT u.id, u.firstname, u.lastname
@@ -141,5 +137,4 @@ class block_superframe extends block_base {
 
         return $records;
     }
-
 }
