@@ -12,17 +12,16 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>;.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * superframe block data display page
+ * Superframe page to list blocks.
  *
  * @package    block_superframe
- * @copyright  Richard Jones  richardnz@outlook.com
- *
+ * @copyright  Daniel Neis <danielneis@gmail.com>
+ * Modified for use in MoodleBites for Developers Level 1 by Richard Jones & Justin Hunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use \block_superframe\local\block_data;
-
 require('../../config.php');
 
 $PAGE->set_url('/blocks/superframe/block_data.php');
@@ -34,4 +33,4 @@ $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 // Let's get some data about blocks.
 $records = block_data::fetch_block_data();
 $renderer = $PAGE->get_renderer('block_superframe');
-echo $renderer->display_block_table($records);
+$renderer->display_block_table($records);

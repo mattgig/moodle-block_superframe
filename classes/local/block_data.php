@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Class to fetch data from the database
  *
- * @package block_superiframe
+ * @package block_superframe
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @see https://moodle.org/mod/forum/discuss.php?d=330687
  */
